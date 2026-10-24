@@ -1,0 +1,96 @@
+# Implementation — eleventy-chapbook
+
+## Phase Overview
+
+| # | Name | Status | Date Range |
+|---|------|--------|------------|
+| 0 | Foundation | ✅ Complete | 2026-02-23 |
+| 1 | Cleanup & Portability | ✅ Complete | 2026-02-25–28 |
+| 2 | Alignment | ✅ Complete | 2026-03-03 |
+| 3 | Schema Parity | ✅ Complete | 2026-03-30 |
+| 4 | Maintenance | ✅ Complete | 2026-10-03 |
+
+---
+
+## Completed Phases
+
+### Phase 0: Foundation (2026-02-23)
+
+- Converted `eleventy-base-blog` v9 into literary chaptered starter
+- Added GitHub Actions workflow for Eleventy deployment
+- Set title to Chapbook, URL to orobia.dev, port 8082
+- Three-layout structure: `base.njk`, `home.njk`, `chapter.njk`
+- Rich CSS literary features: drop caps, scene headings (h4 em-dash), character headings
+
+See: chronicles/phase-0-foundation.md
+
+### Phase 1: Cleanup & Portability (2026-02-25–28)
+
+- Rewrote README to match repo name and document actual structure
+- Moved `_data/metadata.js` to `content/_data/metadata.js`
+- Switched chapters collection from tag-based to glob-based
+- Moved port from `eleventy.config.js` to `package.json` start script
+- Replaced conditional `metadata.typekit` with baked-in Typekit `<link>` tags
+
+See: chronicles/phase-1-cleanup.md
+
+### Phase 2: Alignment (2026-03-03)
+
+- Standardized chapter sort: secondary sort by filename (fallback 999 already set)
+- Renamed `index.njk` to `index.md` for consistency with pamphlet
+- Simplified `chapters.11tydata.js` — removed `eleventyComputed` block
+- Updated `chapter.njk` to use `{{ order }}` (not `chapterNumber`)
+- Updated `about.md` with colophon and GitHub source link
+- Added dark mode with three-way toggle (light/dark/system)
+- Added `details/summary` styling
+
+See: chronicles/phase-2-alignment.md
+
+### Phase 3: Schema Parity (2026-03-30)
+
+- Renamed `--font-serif` to `--font-body` and `--font-sans` to `--font-heading` throughout CSS
+- Dropped `siteName` from metadata, added `subtitle: ""` and `image: ""`
+- Added OG meta tags to `base.njk`; `og:image` conditional
+- Aligned CSS vars, metadata schema, and OG meta with folio and pamphlet
+
+See: chronicles/phase-3-parity.md
+
+### Phase 4: Maintenance (2026-10-03)
+
+- npm 12 install hygiene: pinned `allowScripts` (fsevents), img ^7.0.0
+  (sharp 0.35.5, image-size gone), `.npmrc` fund/audit silenced
+  (DEC-009), engines >=22, `.nvmrc` 24
+- Fresh install is silent; `npm audit` on demand reports only the
+  upstream-unfixable braces→chokidar chain
+- Purged retired eleventy-folio references from README.md and
+  CLAUDE.md — living docs now describe the four document templates
+  under the content contract (Entry 4)
+
+See: chronicles/phase-4-maintenance.md
+
+---
+
+## Current State
+
+The template family is stable. The two literary templates (pamphlet, chapbook) share:
+
+- Identical `content/` structure (fully portable)
+- Identical metadata schema in `content/_data/metadata.js`
+- Identical chapter sort behavior
+- Identical OG meta conditional rendering
+
+chapbook has the richest CSS (drop caps, scene headings, character headings) and serves as the reference for literary CSS features.
+
+No active feature work. Future changes should track as Phase 5.
+
+---
+
+## Future Phases
+
+### Phase 5: (Unplanned)
+
+Ideas if needed:
+
+- Port literary CSS features back to pamphlet
+- RSS/Atom feed for chapters
+- Pagination for long chapter lists
